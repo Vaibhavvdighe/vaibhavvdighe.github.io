@@ -1,0 +1,19 @@
+{
+  "name": "vaibhav-portfolio",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "build": "vite build && node scripts/emit-routes.mjs",
+    "preview": "vite preview --host 127.0.0.1",
+    "check": "node scripts/check-navigation.mjs"
+  },
+  "dependencies": {
+    "react": "latest",
+    "react-dom": "latest"
+  },
+  "devDependencies": {
+    "jsdom": "^31.0.1",
+    "vite": "latest"
+  }
+}
