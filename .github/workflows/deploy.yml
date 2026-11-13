@@ -31,9 +31,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Build for GitHub Pages
-        run: |
-          npx vite build --base=/vaibhavdighe/
-          node scripts/emit-routes.mjs
+        run: npm run build
       - name: Check navigation and direct routes
         run: npm run check
       - name: Configure Pages

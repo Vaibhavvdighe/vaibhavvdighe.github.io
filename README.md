@@ -11,6 +11,6 @@ npm run dev
 
 ## GitHub Pages
 
-The workflow in `.github/workflows/deploy.yml` builds and publishes the site on each push to `main`. Set **Settings → Pages → Build and deployment → Source** to **GitHub Actions**. The published address is `https://vaibhavvdighe.github.io/vaibhavdighe/`.
+The workflow in `.github/workflows/deploy.yml` builds and publishes the site on each push to `main`. Set **Settings → Pages → Build and deployment → Source** to **GitHub Actions**. The published address is `https://vaibhavvdighe.github.io/`.
 
-The Pages build uses `/vaibhavdighe/` as its base path. The normal `npm run build` command keeps `/` for hosting at a domain root.
+The Pages build uses `/` as its base path because this repository is the account's GitHub Pages site.
