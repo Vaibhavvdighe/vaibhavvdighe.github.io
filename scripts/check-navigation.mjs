@@ -11,6 +11,7 @@ const dom = new JSDOM(readFileSync('index.html', 'utf8'), {
 const { window } = dom;
 window.matchMedia = () => ({ matches: false, addEventListener() {}, removeEventListener() {} });
 window.scrollTo = () => {};
+window.HTMLElement.prototype.scrollIntoView = () => {};
 Object.assign(globalThis, {
   window,
   document: window.document,
@@ -50,21 +51,22 @@ try {
   await act(async () => click('.theme-toggle'));
   assert.equal(document.documentElement.dataset.theme, 'dark');
 
-  await act(async () => click('.hero-explore a[href="/work.html"]'));
+  await act(async () => click('.hero-explore a[href="/work.html#project-delivery"]'));
   assert.equal(document.documentElement.dataset.exitTransition, 'depth');
   await act(async () => delay(430));
   assert.equal(location.pathname, '/work.html');
   assert.equal(document, originalDocument);
   assert.equal(document.querySelector('header'), originalHeader);
   assert.notEqual(document.querySelector('main'), originalMain);
-  assert.match(document.querySelector('main').textContent, /Ideas made useful/);
+  assert.match(document.querySelector('main').textContent, /From ambiguity to action/);
+  assert.ok(document.getElementById('project-delivery'));
 
   await delay(700);
   await act(async () => click('main a[href="/cases/thermogel.html"]'));
   assert.equal(document.documentElement.dataset.exitTransition, 'editorial');
   await act(async () => delay(490));
   assert.equal(location.pathname, '/cases/thermogel.html');
-  assert.match(document.querySelector('main').textContent, /From research to a market path/);
+  assert.match(document.querySelector('main').textContent, /Give innovation a market path/);
   assert.equal(document.querySelector('header'), originalHeader);
   assert.match(document.querySelector('[data-step-panel] strong').textContent, /Listen to stakeholders/);
   await act(async () => click('[data-stepper] button:nth-of-type(2)'));
@@ -84,7 +86,7 @@ try {
   assert.equal(document.getElementById('ba-yes-label').textContent, '45%');
   assert.equal(document.getElementById('ba-morph-summary').textContent, '227 of 501 reviews recommended British Airways.');
 
-  for (const route of ['work.html', 'visualizations.html', 'about.html', 'cases/wastetide.html', 'cases/thermogel.html', 'cases/service-request.html', 'cases/plant-disease.html', 'cases/zaq.html']) {
+  for (const route of ['work.html', 'visualizations.html', 'about.html', 'cases/wastetide.html', 'cases/thermogel.html', 'cases/service-request.html', 'cases/plant-disease.html', 'cases/zaq.html', 'cases/bluestem.html', 'cases/alumni-relations.html']) {
     assert.ok(readFileSync(`dist/${route}`, 'utf8').includes('type="module"'), `Missing direct entry for ${route}`);
   }
   process.stdout.write('React navigation, direct routes, and chart controls passed.\n');

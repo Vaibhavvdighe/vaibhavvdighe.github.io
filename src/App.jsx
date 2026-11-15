@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
-import { canonicalPath, pages, sitePath } from './pages.js';
+import { canonicalPath, pages } from './pages.js';
 import { initVisualizations } from './visualizations.js';
 
 const initialPath = canonicalPath(window.location.pathname);
@@ -183,28 +183,28 @@ export default function App() {
   };
 
   const navLinks = [
-    ['Work', sitePath('/work.html'), page.type === 'work' || page.type === 'case'],
-    ['Visualizations', sitePath('/visualizations.html'), page.type === 'visualizations'],
-    ['About', sitePath('/about.html'), page.type === 'about'],
-    ['Contact', sitePath('/index.html#contact'), false],
+    ['Work', '/work.html', page.type === 'work' || page.type === 'case'],
+    ['Visualizations', '/visualizations.html', page.type === 'visualizations'],
+    ['About', '/about.html', page.type === 'about'],
+    ['Contact', '/index.html#contact', false],
   ];
 
   return <div className="app-shell" onClickCapture={handleLink}>
     <a className="skip-link" href="#main">Skip to content</a>
     <header className={`site-header${headerScrolled ? ' is-scrolled' : ''}`} data-site-header>
       <div className="shell nav-shell">
-        <a className="brand" href={sitePath('/index.html')} aria-label="Vaibhav Dighe, home"><span className="brand-mark">VD</span><span className="brand-name">Vaibhav Dighe</span></a>
+        <a className="brand" href="/index.html" aria-label="Vaibhav Dighe, home"><span className="brand-mark">VD</span><span className="brand-name">Vaibhav Dighe</span></a>
         <button className="menu-button" type="button" aria-expanded={menuOpen} aria-controls="primary-nav" onClick={() => setMenuOpen(open => !open)}>Menu ☰</button>
         <nav className={`nav-links${menuOpen ? ' open' : ''}`} id="primary-nav" aria-label="Main navigation">
           {navLinks.map(([label, href, current]) => <a key={label} href={href} className={label === 'Contact' ? 'nav-contact' : undefined} aria-current={current ? 'page' : undefined}>{label}</a>)}
         </nav>
-        <button className="theme-toggle" type="button" aria-pressed={theme === 'light'} aria-label={theme === 'light' ? 'Switch to dark theme' : 'Switch to light theme'} title={theme === 'light' ? 'Switch to dark theme' : 'Switch to light theme'} onClick={toggleTheme}><span className="theme-icon" aria-hidden="true">{theme === 'light' ? '☾' : '☀'}</span></button>
+        <button className="theme-toggle" type="button" aria-pressed={theme === 'light'} aria-label={theme === 'light' ? 'Switch to dark theme' : 'Switch to light theme'} title={theme === 'light' ? 'Switch to dark theme' : 'Switch to light theme'} onClick={toggleTheme}>{theme === 'light' ? <svg className="theme-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M20.3 15.7A8.5 8.5 0 0 1 8.3 3.7 8.5 8.5 0 1 0 20.3 15.7Z" /></svg> : <svg className="theme-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4" /><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32 1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" /></svg>}</button>
       </div>
     </header>
     <main key={path} id="main" ref={mainRef} tabIndex={-1} dangerouslySetInnerHTML={{ __html: page.content }} />
     <footer className="footer" id="contact" data-site-footer>
-      <div className="shell"><div className="footer-main"><div><span className="eyebrow" style={{ color: '#cce5d3' }}>Let's talk</span><h2>Have a complex question?<br /><span className="serif">Let's make it clearer.</span></h2><p>I'm interested in work that brings data, technology, and business judgment together.</p></div><a className="button" href="mailto:vaibhavdighe02@gmail.com">Start a conversation ↗</a></div>
-        <div className="footer-bottom"><span>© {new Date().getFullYear()} Vaibhav Dighe</span><nav aria-label="Footer"><a href={sitePath('/work.html')}>Work</a><a href={sitePath('/visualizations.html')}>Visualizations</a><a href={sitePath('/about.html')}>About</a><a href="https://www.linkedin.com/in/vaibhavdighe" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a><a href="https://github.com/Vaibhavvdighe" target="_blank" rel="noopener noreferrer">GitHub ↗</a></nav></div></div>
+      <div className="shell"><div className="footer-main"><div><span className="eyebrow" style={{ color: '#cce5d3' }}>Let's talk</span><h2>Have a complex question?<br /><span className="serif">Let's make it clearer.</span></h2><p>I'm interested in project, product, and program work that connects business needs, technology, and execution.</p></div><a className="button" href="mailto:vaibhavdighe02@gmail.com">Start a conversation ↗</a></div>
+        <div className="footer-bottom"><span>© {new Date().getFullYear()} Vaibhav Dighe</span><nav aria-label="Footer"><a href="/work.html">Work</a><a href="/visualizations.html">Visualizations</a><a href="/about.html">About</a><a href="https://www.linkedin.com/in/vaibhavdighe" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a><a href="https://github.com/Vaibhavvdighe" target="_blank" rel="noopener noreferrer">GitHub ↗</a></nav></div></div>
     </footer>
     <div className="scroll-progress" aria-hidden="true" style={{ transform: `scaleX(${progress})` }} />
   </div>;
